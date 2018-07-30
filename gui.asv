@@ -251,40 +251,40 @@ function export_Callback(hObject, eventdata, handles)
 % Need To make this a loop for all files
 handles.folder_name = uigetdir('C:\','Select directory to save');           %Get directory to save
 cd(handles.folder_name)
-path=handles.folder_name;
-% Save values
+path=handles.folder_name
+%%PLOT and SAVE TB1
 Volt1=handles.Voltage_TB1;
 Curr1=handles.Current_TB1;
 Temp1=handles.Temperature_TB1;
 Time1=handles.Time_TB1;
-Cell_Number1=handles.Cell_num1;
+Cell_Number=handles.Cell_num1;
 
 Volt2=handles.Voltage_TB2;
 Curr2=handles.Current_TB2;
 Temp2=handles.Temperature_TB2;
 Time2=handles.Time_TB2;
-Cell_Number2=handles.Cell_num2;
+Cell_Number=handles.Cell_num2;
 
 Volt3=handles.Voltage_TB3;
 Curr3=handles.Current_TB3;
 Temp3=handles.Temperature_TB3;
 Time3=handles.Time_TB3;
-Cell_Number3=handles.Cell_num1;
+Cell_Number=handles.Cell_num1;
 
-%%PLOT and SAVE TB1
-plot_Voltage(Time1,Volt1,Cell_Number1,path)
-plot_Current(Time1,Curr1,Cell_Number1,path)
-plot_Temperature(Time1,Temp1,Cell_Number1,path)
+
+plot_Voltage(Time1,Volt1,Cell_Number,path)
+plot_Current(Time1,Curr1,Cell_Number,path)
+plot_Temperature(Time1,Temp1,Cell_Number,path)
 
 %%PLOT and SAVE TB2
-plot_Voltage(Time2,Volt2,Cell_Number2,path)
-plot_Current(Time2,Curr2,Cell_Number2,path)
-plot_Temperature(Time2,Temp2,Cell_Number2,path)
+plot_Voltage(Time2,Volt2,Cell_Number,path)
+plot_Current(Time2,Curr2,Cell_Number,path)
+plot_Temperature(Time2,Temp2,Cell_Number,path)
 
 %%PLOT and SAVE TB3
-plot_Voltage(Time3,Volt3,Cell_Number3,path)
-plot_Current(Time3,Curr3,Cell_Number3,path)
-plot_Temperature(Time3,Temp3,Cell_Number3,path)
+plot_Voltage(Time3,Volt3,Cell_Number,path)
+plot_Current(Time3,Curr3,Cell_Number,path)
+plot_Temperature(Time3,Temp3,Cell_Number,path)
 
 %Extract all to excel
 cd(handles.Cell_num1)

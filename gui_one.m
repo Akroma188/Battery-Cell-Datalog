@@ -1,35 +1,35 @@
-function varargout = gui(varargin)
-% GUI MATLAB code for gui.fig
-%      GUI, by itself, creates a new GUI or raises the existing
+function varargout = gui_one(varargin)
+% GUI_ONE MATLAB code for gui_one.fig
+%      GUI_ONE, by itself, creates a new GUI_ONE or raises the existing
 %      singleton*.
 %
-%      H = GUI returns the handle to a new GUI or the handle to
+%      H = GUI_ONE returns the handle to a new GUI_ONE or the handle to
 %      the existing singleton*.
 %
-%      GUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in GUI.M with the given input arguments.
+%      GUI_ONE('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in GUI_ONE.M with the given input arguments.
 %
-%      GUI('Property','Value',...) creates a new GUI or raises the
+%      GUI_ONE('Property','Value',...) creates a new GUI_ONE or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before gui_OpeningFcn gets called.  An
+%      applied to the GUI_ONE before gui_one_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to gui_OpeningFcn via varargin.
+%      stop.  All inputs are passed to gui_one_OpeningFcn via varargin.
 %
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      *See GUI_ONE Options on GUIDE's Tools menu.  Choose "GUI_ONE allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help gui
+% Edit the above text to modify the response to help gui_one
 
-% Last Modified by GUIDE v2.5 12-Mar-2018 02:05:08
+% Last Modified by GUIDE v2.5 30-Jul-2018 20:11:51
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @gui_OpeningFcn, ...
-                   'gui_OutputFcn',  @gui_OutputFcn, ...
+                   'gui_one_OpeningFcn', @gui_one_OpeningFcn, ...
+                   'gui_one_OutputFcn',  @gui_one_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,26 +44,26 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before gui is made visible.
-function gui_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before gui_one is made visible.
+function gui_one_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to gui (see VARARGIN)
+% varargin   command line arguments to gui_one (see VARARGIN)
 
-% Choose default command line output for gui
+% Choose default command line output for gui_one
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes gui wait for user response (see UIRESUME)
+% UIWAIT makes gui_one wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = gui_OutputFcn(hObject, eventdata, handles) 
+function varargout = gui_one_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -247,44 +247,41 @@ function export_Callback(hObject, eventdata, handles)
 % hObject    handle to export (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Need To make this a loop for all files
 handles.folder_name = uigetdir('C:\','Select directory to save');           %Get directory to save
 cd(handles.folder_name)
-path=handles.folder_name;
-% Save values
+path=handles.folder_name
+%%PLOT and SAVE TB1
 Volt1=handles.Voltage_TB1;
 Curr1=handles.Current_TB1;
 Temp1=handles.Temperature_TB1;
 Time1=handles.Time_TB1;
-Cell_Number1=handles.Cell_num1;
+Cell_Number=handles.Cell_num1;
 
+plot_Voltage(Time1,Volt1,Cell_Number,path)
+plot_Current(Time1,Curr1,Cell_Number,path)
+plot_Temperature(Time1,Temp1,Cell_Number,path)
+
+%%PLOT and SAVE TB2
 Volt2=handles.Voltage_TB2;
 Curr2=handles.Current_TB2;
 Temp2=handles.Temperature_TB2;
 Time2=handles.Time_TB2;
-Cell_Number2=handles.Cell_num2;
+Cell_Number=handles.Cell_num2;
 
+plot_Voltage(Time2,Volt2,Cell_Number,path)
+plot_Current(Time2,Curr2,Cell_Number,path)
+plot_Temperature(Time2,Temp2,Cell_Number,path)
+
+%%PLOT and SAVE TB3
 Volt3=handles.Voltage_TB3;
 Curr3=handles.Current_TB3;
 Temp3=handles.Temperature_TB3;
 Time3=handles.Time_TB3;
-Cell_Number3=handles.Cell_num1;
+Cell_Number=handles.Cell_num;
 
-%%PLOT and SAVE TB1
-plot_Voltage(Time1,Volt1,Cell_Number1,path)
-plot_Current(Time1,Curr1,Cell_Number1,path)
-plot_Temperature(Time1,Temp1,Cell_Number1,path)
-
-%%PLOT and SAVE TB2
-plot_Voltage(Time2,Volt2,Cell_Number2,path)
-plot_Current(Time2,Curr2,Cell_Number2,path)
-plot_Temperature(Time2,Temp2,Cell_Number2,path)
-
-%%PLOT and SAVE TB3
-plot_Voltage(Time3,Volt3,Cell_Number3,path)
-plot_Current(Time3,Curr3,Cell_Number3,path)
-plot_Temperature(Time3,Temp3,Cell_Number3,path)
+plot_Voltage(Time3,Volt3,Cell_Number,path)
+plot_Current(Time3,Curr3,Cell_Number,path)
+plot_Temperature(Time3,Temp3,Cell_Number,path)
 
 %Extract all to excel
 cd(handles.Cell_num1)

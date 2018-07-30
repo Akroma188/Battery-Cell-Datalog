@@ -62,13 +62,10 @@ for file = 1:N
     xlswrite(file_out,T);
     fclose(fileID);
     
-    %Ttype of test
-    Type = T(1,3);
-    Type = num2str(cell2mat(Type));
-    
-    
-    
-    
+%     %Ttype of test
+%     Type = T(1,3);
+%     Type = num2str(cell2mat(Type));
+
     %From cell to Matrix (format double)
     TB1 = zeros(r-2,c-8);     %eliminates the 2 rows of unecessary info
     for i = 1:(r-2)
@@ -115,7 +112,7 @@ for file = 1:N
     cd(Cell_Number1);
     plot_Voltage(Time_TB1,Voltage_TB1,Cell_Number1);    
     plot_Current(Time_TB1,Current_TB1,Cell_Number1);
-    plot_Current(Time_TB1,Temperature_TB1,Cell_Number1);
+    plot_Temperature(Time_TB1,Temperature_TB1,Cell_Number1);
     cd ..
     
     %Plotting TB2
