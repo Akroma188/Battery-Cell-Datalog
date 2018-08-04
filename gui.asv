@@ -251,48 +251,52 @@ function export_Callback(hObject, eventdata, handles)
 % Need To make this a loop for all files
 handles.folder_name = uigetdir('C:\','Select directory to save');           %Get directory to save
 cd(handles.folder_name)
-path=handles.folder_name
-%%PLOT and SAVE TB1
+path=handles.folder_name;
+cd(path)
+% Save values
 Volt1=handles.Voltage_TB1;
 Curr1=handles.Current_TB1;
 Temp1=handles.Temperature_TB1;
 Time1=handles.Time_TB1;
-Cell_Number=handles.Cell_num1;
+Cell_Number1=handles.Cell_num1;
+mkdir(handles.Cell_num1)
 
 Volt2=handles.Voltage_TB2;
 Curr2=handles.Current_TB2;
 Temp2=handles.Temperature_TB2;
 Time2=handles.Time_TB2;
-Cell_Number=handles.Cell_num2;
+Cell_Number2=handles.Cell_num2;
+mkdir(handles.Cell_num2)
 
 Volt3=handles.Voltage_TB3;
 Curr3=handles.Current_TB3;
 Temp3=handles.Temperature_TB3;
 Time3=handles.Time_TB3;
-Cell_Number=handles.Cell_num1;
+Cell_Number3=handles.Cell_num3;
+mkdir(handles.Cell_num3)
 
-
-plot_Voltage(Time1,Volt1,Cell_Number,path)
-plot_Current(Time1,Curr1,Cell_Number,path)
-plot_Temperature(Time1,Temp1,Cell_Number,path)
+%%PLOT and SAVE TB1
+plot_Voltage(Time1,Volt1,Cell_Number1,path)
+plot_Current(Time1,Curr1,Cell_Number1,path)
+plot_Temperature(Time1,Temp1,Cell_Number1,path)
 
 %%PLOT and SAVE TB2
-plot_Voltage(Time2,Volt2,Cell_Number,path)
-plot_Current(Time2,Curr2,Cell_Number,path)
-plot_Temperature(Time2,Temp2,Cell_Number,path)
+plot_Voltage(Time2,Volt2,Cell_Number2,path)
+plot_Current(Time2,Curr2,Cell_Number2,path)
+plot_Temperature(Time2,Temp2,Cell_Number2,path)
 
 %%PLOT and SAVE TB3
-plot_Voltage(Time3,Volt3,Cell_Number,path)
-plot_Current(Time3,Curr3,Cell_Number,path)
-plot_Temperature(Time3,Temp3,Cell_Number,path)
+plot_Voltage(Time3,Volt3,Cell_Number3,path)
+plot_Current(Time3,Curr3,Cell_Number3,path)
+plot_Temperature(Time3,Temp3,Cell_Number3,path)
 
 %Extract all to excel
-cd(handles.Cell_num1)
+cd(Cell_Number1)
 file_out = strcat(handles.Cell_num1,'.xlsx');
 xlswrite(file_out,handles.TB1);
 cd ..
 
-cd(handles.Cell_num2)
+cd(Cell_Number2)
 file_out = strcat(handles.Cell_num2,'.xlsx');
 xlswrite(file_out,handles.TB2);
 cd ..
@@ -417,10 +421,10 @@ currVal = get(handles.curr1, 'Value');
 tempVal = get(handles.temp1, 'Value');
 capVal = get(handles.cap1, 'Value');
 
-cellnum=str2num(cellStr)
-cellnum=num2str(cellnum(cellVal))
+cellnum=str2num(cellStr);
+cellnum=num2str(cellnum(cellVal));
 string='Cell Number: ';
-Title= strcat(string,cellnum)
+Title= strcat(string,cellnum);
 
 if(cellVal==1)
     cellVal
@@ -445,20 +449,20 @@ end
 axes(handles.axes1)
 if(voltVal==1)
     plot(Time,Volt,'linewidth',2);
-    xlabel(handles.axes2,'Time');
-    ylabel(handles.axes2,'Voltage')
+    xlabel(handles.axes1,'Time');
+    ylabel(handles.axes1,'Voltage')
     title1=strcat(Title,'                                     Voltage Over Time');
     title(title1); 
 elseif(currVal==1)
     plot(Time,Curr,'linewidth',2);
-    xlabel(handles.axes2,'Time');
-    ylabel(handles.axes2,'Current');
+    xlabel(handles.axes1,'Time');
+    ylabel(handles.axes1,'Current');
     title1=strcat(Title,'                                     Current Over Time');
     title(title1);
 elseif(tempVal==1)
     plot(Time,Temp,'linewidth',2);
-    xlabel(handles.axes2,'Time');
-    ylabel(handles.axes2,'Temperature');
+    xlabel(handles.axes1,'Time');
+    ylabel(handles.axes1,'Temperature');
     title1=strcat(Title,'                            Temperature Over Time');
     title(title1);
 else
@@ -495,7 +499,10 @@ function plot_Voltage(Time_TB1,Voltage_TB1,Cell_Number,path)
 
     string='Cell Number: ';
     Title= strcat(string,Cell_Number);
-
+    
+    cd(path)
+    cd(Cell_Number)
+    
     Volt=figure;
     set(Volt, 'Visible', 'off');
     Volt=plot(Time_TB1,Voltage_TB1);
@@ -507,14 +514,19 @@ function plot_Voltage(Time_TB1,Voltage_TB1,Cell_Number,path)
     type='.png';
     str1=strcat(str,Cell_Number);
     str2=strcat(str1,type);
-    file_destination=strcat(path,str2);
-    saveas(Volt,file_destination);
+    file_name=str2;
+    saveas(Volt,file_name);
+    cd ..
+    
 
 function plot_Current(Time,Current,Cell_Number,path)
 
     string='Cell Number: ';
     Title= strcat(string,Cell_Number);
-
+    
+    cd(path)
+    cd(Cell_Number)
+    
     Curr=figure;
     set(Curr, 'Visible', 'off');
     Curr=plot(Time,Current);
@@ -526,14 +538,19 @@ function plot_Current(Time,Current,Cell_Number,path)
     type='.png';
     str1=strcat(str,Cell_Number);
     str2=strcat(str1,type);
-    file_destination=strcat(path,str2);
-    saveas(Curr,file_destination);
+    file_name=str2;
+    saveas(Curr,file_name);
+    cd ..
+    
     
 function plot_Temperature(Time,Temp,Cell_Number,path)
 
     string='Cell Number: ';
     Title= strcat(string,Cell_Number);
-
+    
+    cd(path)
+    cd(Cell_Number)
+    
     Tempe=figure;
     set(Tempe, 'Visible', 'off');
     Tempe=plot(Time,Temp);
@@ -545,5 +562,7 @@ function plot_Temperature(Time,Temp,Cell_Number,path)
     type='.png';
     str1=strcat(str,Cell_Number);
     str2=strcat(str1,type);
-    file_destination=strcat(path,str2);
-    saveas(Tempe,file_destination);
+    file_name=str2;
+    saveas(Tempe,file_name);
+    cd ..
+    
